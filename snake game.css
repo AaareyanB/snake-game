@@ -1,0 +1,120 @@
+body {
+    background-image: url("background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                 "Segoe UI", sans-serif;
+}
+h1 {
+    margin-bottom: 15px;
+}
+
+.infoBar {
+    width: 640px;
+    height: 55px;
+
+    margin: 0 auto 15px auto;
+
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 40px;
+
+    background: rgba(87, 79, 79, 0.20);
+
+    box-shadow:
+        0 4px 12px rgba(48, 46, 46, 0.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 18px;
+    box-sizing: border-box;
+}
+
+.infoBar h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.speedControls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.speedControls h3 {
+    margin: 0 6px 0 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.speedControls button {
+    border: none;
+    border-radius: 37px;
+
+    background: rgba(0, 0, 0, 0.20);
+
+    font-size: 18px;
+    padding: 5px 8px;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+}
+
+.speedControls button:hover {
+    background: rgba(0, 0, 0, 0.20);
+    transform: scale(1.05);
+}
+
+.gameGlass {
+    width: 640px;
+    height: 360px;
+
+    margin: 0 auto;
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.25),
+        inset 0 1px 2px rgba(255, 255, 255, 0.6),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+
+    overflow: hidden;
+}
+
+#gameCanvas {
+    display: block;
+
+    width: 640px;
+    height: 360px;
+
+    border: none;
+    background: transparent;
+}
+
+.gameControls {
+    margin-top: 15px;
+}
+
+.gameControls button {
+    border: none;
+    border-radius: 24px;
+
+    background: rgba(0, 0, 0, 0.2);
+
+    font-size: 20px;
+    padding: 14px 24px;
+
+    cursor: pointer;
+}
