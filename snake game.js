@@ -26,9 +26,6 @@ let berry = {
 };
 
 
-// =========================
-// SPAWN BERRY
-// =========================
 
 function spawnBerry() {
 
@@ -68,9 +65,6 @@ function spawnBerry() {
 }
 
 
-// =========================
-// BUTTONS
-// =========================
 
 const speedOne = document.getElementById("speedOne");
 const speedTwo = document.getElementById("speedTwo");
@@ -80,9 +74,7 @@ const startButton = document.getElementById("startButton");
 const gameOverButton = document.getElementById("gameOverButton");
 
 
-// =========================
-// CHANGE GAME SPEED
-// =========================
+
 
 function changeSpeed(speed) {
 
@@ -109,9 +101,6 @@ speedThree.addEventListener("click", function() {
 });
 
 
-// =========================
-// RESET GAME
-// =========================
 
 function resetGame() {
 
@@ -125,13 +114,11 @@ function resetGame() {
 
     gameOver = false;
 
-    head = {
-        x: 6,
+    head = { x: 6,
         y: 9
     };
 
-    dir = {
-        x: 1,
+    dir = { x: 1,
         y: 0
     };
 
@@ -141,9 +128,6 @@ function resetGame() {
 }
 
 
-// =========================
-// START BUTTON
-// =========================
 
 startButton.addEventListener("click", function() {
 
@@ -152,9 +136,6 @@ startButton.addEventListener("click", function() {
 });
 
 
-// =========================
-// END GAME BUTTON
-// =========================
 
 gameOverButton.addEventListener("click", function() {
 
@@ -163,9 +144,6 @@ gameOverButton.addEventListener("click", function() {
 });
 
 
-// =========================
-// KEYBOARD INPUT
-// =========================
 
 document.addEventListener("keydown", function(event) {
 
@@ -211,7 +189,6 @@ document.addEventListener("keydown", function(event) {
     }
 
 
-    // Restart with Space
     if (event.key === " ") {
 
         resetGame();
@@ -220,10 +197,6 @@ document.addEventListener("keydown", function(event) {
 });
 
 
-// =========================
-// GAME LOOP
-// =========================
-
 function gameLoop() {
 
     if (gameOver) {
@@ -231,9 +204,6 @@ function gameLoop() {
     }
 
 
-    // =========================
-    // MOVE BODY
-    // =========================
 
     for (let i = segments.length - 1; i > 0; i--) {
 
@@ -248,14 +218,11 @@ function gameLoop() {
     };
 
 
-    // Move head
     head.x += dir.x;
     head.y += dir.y;
 
 
-    // =========================
-    // BORDER KNOCKBACK
-    // =========================
+
 
     if (head.x >= screenWidth) {
 
@@ -271,11 +238,8 @@ function gameLoop() {
     }
 
 
-    if (head.x < 0) {
-
-        head.x = 1;
-
-        for (let i = 0; i < segments.length; i++) {
+    if (head.x < 0) {  head.x = 1;
+                     for (let i = 0; i < segments.length; i++) {
             segments[i].x++;
         }
 
@@ -313,9 +277,6 @@ function gameLoop() {
     }
 
 
-    // =========================
-    // SELF COLLISION
-    // =========================
 
     for (let i = 0; i < segments.length; i++) {
 
@@ -333,9 +294,6 @@ function gameLoop() {
     }
 
 
-    // =========================
-    // BERRY COLLISION
-    // =========================
 
     if (head.x === berry.x && head.y === berry.y) {
 
@@ -345,29 +303,24 @@ function gameLoop() {
 
             scoreDisplay.textContent = score;
 
-            // Add new segment at the tail
             segments.push({
                 x: segments[segments.length - 1].x,
                 y: segments[segments.length - 1].y
             });
 
-            // Spawn berry somewhere not occupied by snake
+        
             spawnBerry();
         }
     }
 
 
-    // =========================
-    // DRAW EVERYTHING
-    // =========================
+ 
 
     drawGame();
 }
 
 
-// =========================
-// DRAW SMOOTH BODY
-// =========================
+
 
 function drawSmoothBody() {
 
@@ -378,16 +331,11 @@ function drawSmoothBody() {
     ctx.beginPath();
 
 
-    // Start at the head
     ctx.moveTo(
         head.x * 20 + 10,
         head.y * 20 + 10
     );
 
-
-    // =========================
-    // SMOOTH CURVES
-    // =========================
 
     for (let i = 0; i < segments.length; i++) {
 
@@ -397,7 +345,7 @@ function drawSmoothBody() {
         const currentY = current.y * 20 + 10;
 
 
-        // Last segment
+      
         if (i === segments.length - 1) {
 
             ctx.lineTo(
@@ -415,12 +363,12 @@ function drawSmoothBody() {
         const nextY = next.y * 20 + 10;
 
 
-        // Midpoint between current and next
+  
         const middleX = (currentX + nextX) / 2;
         const middleY = (currentY + nextY) / 2;
 
 
-        // Smooth curve through the corner
+    
         ctx.quadraticCurveTo(
             currentX,
             currentY,
@@ -430,9 +378,7 @@ function drawSmoothBody() {
     }
 
 
-    // =========================
-    // BODY STYLE
-    // =========================
+
 
     ctx.strokeStyle = "#2a2a2c79";
 
@@ -445,9 +391,7 @@ function drawSmoothBody() {
 }
 
 
-// =========================
-// DRAW ROUNDED SEGMENT
-// =========================
+
 
 function drawRoundedSegment(x, y, radius) {
 
@@ -465,9 +409,6 @@ function drawRoundedSegment(x, y, radius) {
 }
 
 
-// =========================
-// DRAW GAME
-// =========================
 
 function drawGame() {
 
@@ -478,10 +419,6 @@ function drawGame() {
         canvas.height
     );
 
-
-    // =========================
-    // DRAW BERRY
-    // =========================
 
     ctx.beginPath();
 
@@ -497,16 +434,10 @@ function drawGame() {
     ctx.fill();
 
 
-    // =========================
-    // DRAW BODY
-    // =========================
 
     drawSmoothBody();
 
 
-    // =========================
-    // DRAW HEAD
-    // =========================
 
     ctx.fillStyle = "#2a2a2c79";
 
@@ -518,9 +449,7 @@ function drawGame() {
 }
 
 
-// =========================
-// START GAME LOOP
-// =========================
+
 
 spawnBerry();
 
