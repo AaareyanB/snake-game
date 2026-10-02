@@ -25,8 +25,6 @@ let berry = {
     y: 0
 };
 
-
-
 function spawnBerry() {
 
     let validPosition = false;
@@ -38,8 +36,6 @@ function spawnBerry() {
 
         validPosition = true;
 
-
-        // Check head
         if (
             berry.x === head.x &&
             berry.y === head.y
@@ -48,8 +44,6 @@ function spawnBerry() {
             validPosition = false;
         }
 
-
-        // Check body
         for (let i = 0; i < segments.length; i++) {
 
             if (
@@ -64,17 +58,12 @@ function spawnBerry() {
     }
 }
 
-
-
 const speedOne = document.getElementById("speedOne");
 const speedTwo = document.getElementById("speedTwo");
 const speedThree = document.getElementById("speedThree");
 
 const startButton = document.getElementById("startButton");
 const gameOverButton = document.getElementById("gameOverButton");
-
-
-
 
 function changeSpeed(speed) {
 
@@ -85,22 +74,17 @@ function changeSpeed(speed) {
     gameInterval = setInterval(gameLoop, FRAME_TIME);
 }
 
-
 speedOne.addEventListener("click", function() {
     changeSpeed(125);
 });
-
 
 speedTwo.addEventListener("click", function() {
     changeSpeed(90);
 });
 
-
 speedThree.addEventListener("click", function() {
     changeSpeed(60);
 });
-
-
 
 function resetGame() {
 
@@ -114,11 +98,13 @@ function resetGame() {
 
     gameOver = false;
 
-    head = { x: 6,
+    head = {
+        x: 6,
         y: 9
     };
 
-    dir = { x: 1,
+    dir = {
+        x: 1,
         y: 0
     };
 
@@ -127,23 +113,17 @@ function resetGame() {
     drawGame();
 }
 
-
-
 startButton.addEventListener("click", function() {
 
     resetGame();
 
 });
 
-
-
 gameOverButton.addEventListener("click", function() {
 
     gameOver = true;
 
 });
-
-
 
 document.addEventListener("keydown", function(event) {
 
@@ -155,7 +135,6 @@ document.addEventListener("keydown", function(event) {
         dir.y = 0;
     }
 
-
     if (event.key === "ArrowRight") {
 
         if (dir.x === -1) return;
@@ -163,7 +142,6 @@ document.addEventListener("keydown", function(event) {
         dir.x = 1;
         dir.y = 0;
     }
-
 
     if (event.key === "ArrowUp") {
 
@@ -173,7 +151,6 @@ document.addEventListener("keydown", function(event) {
         dir.y = -1;
     }
 
-
     if (event.key === "ArrowDown") {
 
         if (dir.y === -1) return;
@@ -182,12 +159,10 @@ document.addEventListener("keydown", function(event) {
         dir.y = 1;
     }
 
-
     if (event.key === "Escape") {
 
         gameOver = true;
     }
-
 
     if (event.key === " ") {
 
@@ -196,14 +171,11 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 function gameLoop() {
 
     if (gameOver) {
         return;
     }
-
-
 
     for (let i = segments.length - 1; i > 0; i--) {
 
@@ -211,18 +183,13 @@ function gameLoop() {
 
     }
 
-
     segments[0] = {
         x: head.x,
         y: head.y
     };
 
-
     head.x += dir.x;
     head.y += dir.y;
-
-
-
 
     if (head.x >= screenWidth) {
 
@@ -237,9 +204,11 @@ function gameLoop() {
         return;
     }
 
+    if (head.x < 0) {
 
-    if (head.x < 0) {  head.x = 1;
-                     for (let i = 0; i < segments.length; i++) {
+        head.x = 1;
+
+        for (let i = 0; i < segments.length; i++) {
             segments[i].x++;
         }
 
@@ -247,7 +216,6 @@ function gameLoop() {
         gameOver = true;
         return;
     }
-
 
     if (head.y >= screenHeight) {
 
@@ -262,7 +230,6 @@ function gameLoop() {
         return;
     }
 
-
     if (head.y < 0) {
 
         head.y = 1;
@@ -275,8 +242,6 @@ function gameLoop() {
         gameOver = true;
         return;
     }
-
-
 
     for (let i = 0; i < segments.length; i++) {
 
@@ -293,8 +258,6 @@ function gameLoop() {
         }
     }
 
-
-
     if (head.x === berry.x && head.y === berry.y) {
 
         if (score < MAX_SCORE) {
@@ -308,19 +271,12 @@ function gameLoop() {
                 y: segments[segments.length - 1].y
             });
 
-        
             spawnBerry();
         }
     }
 
-
- 
-
     drawGame();
 }
-
-
-
 
 function drawSmoothBody() {
 
@@ -330,12 +286,10 @@ function drawSmoothBody() {
 
     ctx.beginPath();
 
-
     ctx.moveTo(
         head.x * 20 + 10,
         head.y * 20 + 10
     );
-
 
     for (let i = 0; i < segments.length; i++) {
 
@@ -344,8 +298,6 @@ function drawSmoothBody() {
         const currentX = current.x * 20 + 10;
         const currentY = current.y * 20 + 10;
 
-
-      
         if (i === segments.length - 1) {
 
             ctx.lineTo(
@@ -356,19 +308,14 @@ function drawSmoothBody() {
             continue;
         }
 
-
         const next = segments[i + 1];
 
         const nextX = next.x * 20 + 10;
         const nextY = next.y * 20 + 10;
 
-
-  
         const middleX = (currentX + nextX) / 2;
         const middleY = (currentY + nextY) / 2;
 
-
-    
         ctx.quadraticCurveTo(
             currentX,
             currentY,
@@ -376,9 +323,6 @@ function drawSmoothBody() {
             middleY
         );
     }
-
-
-
 
     ctx.strokeStyle = "#2a2a2c79";
 
@@ -389,9 +333,6 @@ function drawSmoothBody() {
 
     ctx.stroke();
 }
-
-
-
 
 function drawRoundedSegment(x, y, radius) {
 
@@ -408,8 +349,6 @@ function drawRoundedSegment(x, y, radius) {
     ctx.fill();
 }
 
-
-
 function drawGame() {
 
     ctx.clearRect(
@@ -418,7 +357,6 @@ function drawGame() {
         canvas.width,
         canvas.height
     );
-
 
     ctx.beginPath();
 
@@ -433,11 +371,7 @@ function drawGame() {
     ctx.fillStyle = "#6675fd";
     ctx.fill();
 
-
-
     drawSmoothBody();
-
-
 
     ctx.fillStyle = "#2a2a2c79";
 
@@ -448,9 +382,66 @@ function drawGame() {
     );
 }
 
-
-
-
 spawnBerry();
 
 gameInterval = setInterval(gameLoop, FRAME_TIME);
+
+
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener("touchstart", function(event) {
+
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+
+}, { passive: true });
+
+
+canvas.addEventListener("touchend", function(event) {
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+
+    const differenceX = touchEndX - touchStartX;
+    const differenceY = touchEndY - touchStartY;
+
+    if (Math.abs(differenceX) > Math.abs(differenceY)) {
+
+        if (differenceX > 0) {
+
+            if (dir.x === -1) return;
+
+            dir.x = 1;
+            dir.y = 0;
+
+        } else {
+
+            if (dir.x === 1) return;
+
+            dir.x = -1;
+            dir.y = 0;
+
+        }
+
+    } else {
+
+        if (differenceY > 0) {
+
+            if (dir.y === -1) return;
+
+            dir.x = 0;
+            dir.y = 1;
+
+        } else {
+
+            if (dir.y === 1) return;
+
+            dir.x = 0;
+            dir.y = -1;
+
+        }
+    }
+
+}, { passive: true });
